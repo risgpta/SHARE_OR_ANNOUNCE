@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import mongoengine as mongoengine
+# settings.py
+from decouple import config
+
+DB_PASSWORD = config('PASSWORD')
+DATABASE_URL = config('DATABASE_URL')
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -86,14 +92,16 @@ WSGI_APPLICATION = 'share_or_announce.wsgi.application'
 #     }
 # }
 
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         "CLIENT": {
            "name": 'share-or-announce',
-           "host": 'mongodb+srv://risgpta:THZz38qP9infPReT@cluster0.sgwbbaa.mongodb.net/?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE',
+           "host": DATABASE_URL,
            "username": 'risgpta',
-           "password": 'THZz38qP9infPReT',
+           "password": DB_PASSWORD,
            "authMechanism": "SCRAM-SHA-1",
         },
     }
@@ -132,7 +140,7 @@ USE_TZ = True
 
 # mongoengine.connect(
 #          db="share-or-announce",
-#         host="mongodb+srv://risgpta:THZz38qP9infPReT@cluster0.sgwbbaa.mongodb.net/?retryWrites=true&w=majority",
+#         host=DATABASE_URL,
 # )
 
 # try:
